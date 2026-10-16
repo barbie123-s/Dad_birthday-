@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Dad! 🎂</title>
+<style>
+  :root { --gold:#f5cf75; --cream:#fff7e6; --ink:#151225; --purple:#35234c; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; min-height:100vh; display:grid; place-items:center; padding:22px;
+    font-family: Georgia, "Times New Roman", serif; color:var(--cream);
+    background: radial-gradient(ellipse at top, #4a2c59 0%, #21172f 45%, #100f1b 100%);
+    overflow-x:hidden;
+  }
+  .sparkles { position:fixed; inset:0; pointer-events:none; overflow:hidden; }
+  .sparkles span { position:absolute; color:var(--gold); opacity:.7; animation:twinkle 3s infinite ease-in-out; }
+  .sparkles span:nth-child(1){top:10%;left:12%;font-size:22px}
+  .sparkles span:nth-child(2){top:18%;right:13%;font-size:17px;animation-delay:.7s}
+  .sparkles span:nth-child(3){top:72%;left:8%;font-size:19px;animation-delay:1.3s}
+  .sparkles span:nth-child(4){bottom:10%;right:10%;font-size:25px;animation-delay:.4s}
+  .sparkles span:nth-child(5){top:48%;right:5%;font-size:14px;animation-delay:1.8s}
+  @keyframes twinkle { 0%,100%{transform:scale(.75) rotate(0);opacity:.35} 50%{transform:scale(1.25) rotate(25deg);opacity:1} }
+  .card {
+    width:min(100%, 680px); position:relative; text-align:center; padding:clamp(28px,6vw,58px) clamp(20px,6vw,56px);
+    border:1px solid rgba(245,207,117,.6); border-radius:28px;
+    background:linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
+    box-shadow:0 24px 80px rgba(0,0,0,.35), inset 0 0 35px rgba(245,207,117,.04);
+    backdrop-filter:blur(8px);
+  }
+  .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:.22em; font:600 12px/1.5 Arial,sans-serif; }
+  .cake { font-size:clamp(54px,12vw,84px); margin:14px 0 6px; filter:drop-shadow(0 8px 18px #0005); }
+  h1 { color:var(--gold); font-size:clamp(38px,9vw,66px); line-height:1.02; margin:10px 0 18px; font-weight:normal; }
+  .rule { width:78px; height:2px; margin:22px auto; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .message { font-size:clamp(17px,3.7vw,21px); line-height:1.8; color:#fff8e9; margin:0 auto; max-width:510px; }
+  .signature { margin-top:25px; color:var(--gold); font-size:22px; font-style:italic; }
+  button {
+    margin-top:30px; border:0; border-radius:999px; padding:15px 24px; cursor:pointer;
+    color:#24182c; background:linear-gradient(135deg,#ffe8a6,#e9b94e); font:700 15px Arial,sans-serif;
+    box-shadow:0 8px 22px #0004; transition:transform .2s, box-shadow .2s;
+  }
+  button:hover { transform:translateY(-2px); box-shadow:0 12px 28px #0005; }
+  #surprise { display:none; margin:24px auto 0; padding:20px; border-radius:18px; background:#ffffff0d; border:1px solid #f5cf754d; line-height:1.7; font-size:18px; }
+  #surprise.show { display:block; animation:rise .7s ease both; }
+  @keyframes rise { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .footer { margin-top:28px; color:#d5c4dc; font:12px Arial,sans-serif; letter-spacing:.08em; }
+  .heart { color:#ffb7c5; }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after {animation:none!important;transition:none!important;} }
+</style>
+</head>
+<body>
+<div class="sparkles" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span></div>
+<main class="card">
+  <div class="eyebrow">Today is all about you</div>
+  <div class="cake" aria-hidden="true">🎂</div>
+  <h1>Happy Birthday,<br>Dad!</h1>
+  <div class="rule"></div>
+  <p class="message">
+    To my wonderful Dad,<br>
+    thank you for your love, your guidance, your sacrifices, and the strength you give our family.
+    I’m so grateful to have you in my life. You deserve a year filled with happiness, good health,
+    peace, laughter, and beautiful blessings.
+    <br><br>
+    May every new day bring you reasons to smile, and may you always feel just how loved and appreciated you are.
+    <br><br>
+    <strong>Enjoy your special day, Dad. You deserve the very best! ❤️</strong>
+  </p>
+  <div class="signature">With all my love ♡</div>
+  <button id="surpriseBtn" type="button" aria-expanded="false" aria-controls="surprise">Tap for a little birthday surprise ✨</button>
+  <div id="surprise" role="status">
+    🎉 <strong>One more wish for you, Dad!</strong><br>
+    May this new chapter of your life be your happiest one yet. May you be protected, strengthened, and surrounded by love every step of the way. I love you! ❤️
+  </div>
+  <div class="footer">MADE WITH LOVE <span class="heart">♥</span> JUST FOR DAD</div>
+</main>
+<script>
+  const btn = document.getElementById('surpriseBtn');
+  const surprise = document.getElementById('surprise');
+  btn.addEventListener('click', () => {
+    const open = surprise.classList.toggle('show');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.textContent = open ? 'Hide surprise' : 'Tap for a little birthday surprise ✨';
+    if (open) {
+      for (let i = 0; i < 24; i++) {
+        const conf = document.createElement('span');
+        conf.textContent = ['✦','♥','✧','🎉'][i % 4];
+        Object.assign(conf.style, {
+          position:'fixed', left:(Math.random()*100)+'vw', top:'-30px',
+          zIndex:'10', pointerEvents:'none', fontSize:(14+Math.random()*16)+'px',
+          color:['#f5cf75','#ffb7c5','#fff7e6'][i%3],
+          transition:'transform 2.4s ease-in, opacity 2.4s ease-in'
+        });
+        document.body.appendChild(conf);
+        requestAnimationFrame(() => {
+          conf.style.transform = `translateY(${window.innerHeight + 80}px) rotate(${Math.random()*500}deg)`;
+          conf.style.opacity = '0';
+        });
+        setTimeout(() => conf.remove(), 2500);
+      }
+    }
+  });
+</script>
+</body>
+</html>
